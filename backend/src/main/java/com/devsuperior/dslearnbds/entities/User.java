@@ -1,9 +1,7 @@
 package com.devsuperior.dslearnbds.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -33,8 +32,10 @@ public class User implements Serializable {
 			inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
+	@OneToMany(mappedBy = "user")
+	private List<Notification> notifications = new ArrayList<>();
+
 	public User() {
-		super();
 	}
 
 	public User(Long id, String name, String email, String password, Set<Role> roles) {
